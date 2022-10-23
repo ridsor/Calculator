@@ -581,6 +581,14 @@ public class App extends javax.swing.JFrame {
 
     private void backSpaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backSpaceActionPerformed
         // TODO add your handling code here:
+        if(this.displayNumber != "0") {
+            if(this.displayNumber.length() > 1) {
+                this.displayNumber = this.displayNumber.substring(0,this.displayNumber.length()-1);
+            } else {
+                this.displayNumber = "0";
+            }
+            updateDisplay();
+        }
     }//GEN-LAST:event_backSpaceActionPerformed
 
     private void clearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllActionPerformed
@@ -663,7 +671,7 @@ public class App extends javax.swing.JFrame {
 
     public void handleOperator(String operator) {
         this.operator = operator;
-        this.secondNumber = String.valueOf(this.displayNumber);
+        this.secondNumber = new String(this.displayNumber);
         this.history.setText(this.secondNumber + " " + this.operator);
         this.displayNumber = null; 
         this.waitingForSecondNumber = true;
