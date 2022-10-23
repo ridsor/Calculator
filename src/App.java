@@ -457,14 +457,14 @@ public class App extends javax.swing.JFrame {
 
     private void btnEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEqualsActionPerformed
         // TODO add your handling code here:
-        this.displayNumber = (this.displayNumber == null) ? String.valueOf(this.secondNumber) : this.displayNumber;
+        this.displayNumber = (this.displayNumber == null) ? new String(this.secondNumber) : this.displayNumber;
         performCalculation();
     }//GEN-LAST:event_btnEqualsActionPerformed
 
     private void btnPositifMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPositifMinusActionPerformed
         // TODO add your handling code here:
 //        this.displayNumber = (isFloat(this.displayNumber)) ? Float.toString(Float.parseFloat(this.displayNumber + "f") * -1) : Integer.toString(Integer.parseInt(this.displayNumber) * -1);
-        this.displayNumber = (this.displayNumber == null) ? String.valueOf(this.secondNumber) : this.displayNumber;
+        this.displayNumber = (this.displayNumber == null) ? new String(this.secondNumber) : this.displayNumber;
         
         if(this.displayNumber != "0") {
             boolean isMinus = this.displayNumber.startsWith("-");
@@ -495,10 +495,8 @@ public class App extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-        if(this.displayNumber != null) {
-            cleanNumber();
-            handleOperator("+");
-        }
+        cleanNumber();
+        handleOperator("+");
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
@@ -521,10 +519,8 @@ public class App extends javax.swing.JFrame {
 
     private void btnKurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKurangActionPerformed
         // TODO add your handling code here:
-        if(this.displayNumber != null) {
-            cleanNumber();
-            handleOperator("-");
-        }
+        cleanNumber();
+        handleOperator("-");
     }//GEN-LAST:event_btnKurangActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
@@ -547,10 +543,8 @@ public class App extends javax.swing.JFrame {
 
     private void btnKaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKaliActionPerformed
         // TODO add your handling code here:
-        if(this.displayNumber != null) {
-            cleanNumber();
-            handleOperator("x");
-        }
+        cleanNumber();
+        handleOperator("x");
     }//GEN-LAST:event_btnKaliActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
@@ -573,15 +567,13 @@ public class App extends javax.swing.JFrame {
 
     private void btnBagiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBagiActionPerformed
         // TODO add your handling code here:
-        if(this.displayNumber != null) {
-            cleanNumber();
-            handleOperator("/");
-        }
+        cleanNumber();
+        handleOperator("/");
     }//GEN-LAST:event_btnBagiActionPerformed
 
     private void backSpaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backSpaceActionPerformed
         // TODO add your handling code here:
-        if(this.displayNumber != "0") {
+        if(this.displayNumber != "0" && this.displayNumber != null) {
             if(this.displayNumber.length() > 1) {
                 this.displayNumber = this.displayNumber.substring(0,this.displayNumber.length()-1);
             } else {
@@ -647,14 +639,16 @@ public class App extends javax.swing.JFrame {
     }
     
     public void cleanNumber() {
-        if(this.displayNumber.contains(",")) {
-            boolean found = this.displayNumber.endsWith("0");
-            while(found) {
-                this.displayNumber = this.displayNumber.substring(0, this.displayNumber.length()-1 );
-                found = this.displayNumber.endsWith("0");
-            }
-            if(this.displayNumber.endsWith(",")) {
-                this.displayNumber = this.displayNumber.substring(0, this.displayNumber.length()-1 );
+        if(this.displayNumber != null) {
+            if(this.displayNumber.contains(",")) {
+                boolean found = this.displayNumber.endsWith("0");
+                while(found) {
+                    this.displayNumber = this.displayNumber.substring(0, this.displayNumber.length()-1 );
+                    found = this.displayNumber.endsWith("0");
+                }
+                if(this.displayNumber.endsWith(",")) {
+                    this.displayNumber = this.displayNumber.substring(0, this.displayNumber.length()-1 );
+                }
             }
         }
     }
@@ -671,7 +665,7 @@ public class App extends javax.swing.JFrame {
 
     public void handleOperator(String operator) {
         this.operator = operator;
-        this.secondNumber = new String(this.displayNumber);
+        this.secondNumber = (this.displayNumber == null) ? this.secondNumber : new String(this.displayNumber);
         this.history.setText(this.secondNumber + " " + this.operator);
         this.displayNumber = null; 
         this.waitingForSecondNumber = true;
