@@ -21,6 +21,7 @@ public class App extends javax.swing.JFrame {
      */
     public App() {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.displayNumber = "0";
     }
 
@@ -602,40 +603,74 @@ public class App extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new App().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new App().setVisible(true);
+//            }
+//        });
+//    }
     
     public void performCalculation() {
-        this.history.setText(this.secondNumber + " " + this.operator + " " + this.displayNumber + " =");
+        if(this.waitingForSecondNumber) {
+            this.history.setText(this.secondNumber + " " + this.operator + " " + this.displayNumber + " =");
+        
+            if(this.displayNumber.contains(",")) {
+                this.displayNumber = this.displayNumber.replace(",", ".");
+            }
+
+            if(this.secondNumber.contains(",")) {
+                this.secondNumber = this.secondNumber.replace(",", ".");
+            }
+            
+            switch(this.operator) {
+                case "/":
+                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) / Float.parseFloat(this.displayNumber));
+                    break;
+                case "*":
+                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) * Float.parseFloat(this.displayNumber));
+                    break;
+                case "-":
+                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) - Float.parseFloat(this.displayNumber));
+                    break;
+                case "+":
+                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) + Float.parseFloat(this.displayNumber));
+                    break;
+            }
+            
+            if(this.displayNumber.contains(".")) {
+                this.displayNumber = this.displayNumber.replace(".", ",");
+            }
+            
+            cleanNumber();
+            updateDisplay();
+        } else {
+            this.history.setText(this.displayNumber + " =");
+        }
     }
     
     public void cleanNumber() {
@@ -653,15 +688,15 @@ public class App extends javax.swing.JFrame {
         }
     }
     
-    public boolean isFloat(String number) {
-        String[] words = number.split("");
-        for(int i=0; i<words.length; i++) {
-            if(words[i].equals(",")) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean isFloat(String number) {
+//        String[] words = number.split("");
+//        for(int i=0; i<words.length; i++) {
+//            if(words[i].equals(".")) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public void handleOperator(String operator) {
         this.operator = operator;
