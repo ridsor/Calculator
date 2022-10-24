@@ -1,5 +1,5 @@
-
-import java.util.Arrays;
+import java.awt.Image;
+import java.awt.Toolkit;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,8 +13,10 @@ import java.util.Arrays;
 public class App extends javax.swing.JFrame {
     private String displayNumber;
     private String operator;
-    private String secondNumber;
+    private String firstNumber;
     private boolean waitingForSecondNumber;
+    private boolean alrdyCount;
+    private StringBuilder tempDisplayNumber;
 
     /**
      * Creates new form App
@@ -22,6 +24,8 @@ public class App extends javax.swing.JFrame {
     public App() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/logo.png");
+        setIconImage(icon);
         this.displayNumber = "0";
     }
 
@@ -458,14 +462,18 @@ public class App extends javax.swing.JFrame {
 
     private void btnEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEqualsActionPerformed
         // TODO add your handling code here:
-        this.displayNumber = (this.displayNumber == null) ? new String(this.secondNumber) : this.displayNumber;
+        this.displayNumber = (this.displayNumber == null) ? new String(this.firstNumber) : this.displayNumber;
         performCalculation();
     }//GEN-LAST:event_btnEqualsActionPerformed
 
     private void btnPositifMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPositifMinusActionPerformed
         // TODO add your handling code here:
 //        this.displayNumber = (isFloat(this.displayNumber)) ? Float.toString(Float.parseFloat(this.displayNumber + "f") * -1) : Integer.toString(Integer.parseInt(this.displayNumber) * -1);
-        this.displayNumber = (this.displayNumber == null) ? new String(this.secondNumber) : this.displayNumber;
+        this.displayNumber = (this.displayNumber == null) ? new String(this.firstNumber) : this.displayNumber;
+        
+        if(this.alrdyCount) {
+            clearCalculator();
+        }
         
         if(this.displayNumber != "0") {
             boolean isMinus = this.displayNumber.startsWith("-");
@@ -480,6 +488,11 @@ public class App extends javax.swing.JFrame {
 
     private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+
         inputDigit("0");
         updateDisplay();
     }//GEN-LAST:event_btn0ActionPerformed
@@ -488,6 +501,12 @@ public class App extends javax.swing.JFrame {
         if(this.displayNumber == null) {
             this.displayNumber = "0";
         }
+        
+        if(this.alrdyCount) {
+            clearCalculator();
+            this.displayNumber = "0";
+        }
+        
         if(!this.displayNumber.contains(",")) {
             inputDigit(",");
             updateDisplay();
@@ -502,42 +521,77 @@ public class App extends javax.swing.JFrame {
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("1");
         updateDisplay();
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("2");
         updateDisplay();
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("3");
         updateDisplay();
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btnKurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKurangActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         cleanNumber();
         handleOperator("-");
     }//GEN-LAST:event_btnKurangActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("6");
         updateDisplay();
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("5");
         updateDisplay();
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("4");
         updateDisplay();
     }//GEN-LAST:event_btn4ActionPerformed
@@ -550,18 +604,33 @@ public class App extends javax.swing.JFrame {
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("9");
         updateDisplay();
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("8");
         updateDisplay();
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            this.displayNumber = null;
+            clearCalculator();
+        }
+        
         inputDigit("7");
         updateDisplay();
     }//GEN-LAST:event_btn7ActionPerformed
@@ -574,18 +643,29 @@ public class App extends javax.swing.JFrame {
 
     private void backSpaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backSpaceActionPerformed
         // TODO add your handling code here:
-        if(this.displayNumber != "0" && this.displayNumber != null) {
-            if(this.displayNumber.length() > 1) {
-                this.displayNumber = this.displayNumber.substring(0,this.displayNumber.length()-1);
-            } else {
-                this.displayNumber = "0";
+        if(this.alrdyCount) {
+            clearCalculator();
+        } else {
+            if(this.displayNumber != "0" && this.displayNumber != null) {
+                if(this.displayNumber.length() > 1) {
+                    this.displayNumber = this.displayNumber.substring(0,this.displayNumber.length()-1);
+                } else {
+                    this.displayNumber = "0";
+                }
+                
+                if(this.displayNumber.endsWith("-")) {
+                    this.displayNumber = "0";
+                }
+                
+                updateDisplay();
             }
-            updateDisplay();
         }
     }//GEN-LAST:event_backSpaceActionPerformed
 
     private void clearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllActionPerformed
         // TODO add your handling code here:
+        this.displayNumber = "0";
+        updateDisplay();
         clearCalculator();
     }//GEN-LAST:event_clearAllActionPerformed
 
@@ -637,40 +717,56 @@ public class App extends javax.swing.JFrame {
     
     public void performCalculation() {
         if(this.waitingForSecondNumber) {
-            this.history.setText(this.secondNumber + " " + this.operator + " " + this.displayNumber + " =");
-        
-            if(this.displayNumber.contains(",")) {
-                this.displayNumber = this.displayNumber.replace(",", ".");
-            }
-
-            if(this.secondNumber.contains(",")) {
-                this.secondNumber = this.secondNumber.replace(",", ".");
-            }
-            
-            switch(this.operator) {
-                case "/":
-                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) / Float.parseFloat(this.displayNumber));
-                    break;
-                case "*":
-                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) * Float.parseFloat(this.displayNumber));
-                    break;
-                case "-":
-                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) - Float.parseFloat(this.displayNumber));
-                    break;
-                case "+":
-                    this.displayNumber = Float.toString(Float.parseFloat(this.secondNumber) + Float.parseFloat(this.displayNumber));
-                    break;
-            }
-            
-            if(this.displayNumber.contains(".")) {
-                this.displayNumber = this.displayNumber.replace(".", ",");
-            }
-            
+            tempDisplayNumber = new StringBuilder(this.displayNumber);
+            count();
             cleanNumber();
             updateDisplay();
+            this.waitingForSecondNumber = false;
         } else {
-            this.history.setText(this.displayNumber + " =");
+            if(this.firstNumber != null) {
+                this.firstNumber = new String(this.displayNumber);
+                this.displayNumber = tempDisplayNumber.toString();
+                count();
+                cleanNumber();
+                updateDisplay();
+                this.waitingForSecondNumber = false;
+            } else {
+                this.history.setText(this.displayNumber + " =");
+            }
         }
+    }
+    
+    public void count() {
+        this.history.setText(this.firstNumber + " " + this.operator + " " + this.displayNumber + " =");
+        
+        if(this.displayNumber.contains(",")) {
+            this.displayNumber = this.displayNumber.replace(",", ".");
+        }
+
+        if(this.firstNumber.contains(",")) {
+            this.firstNumber = this.firstNumber.replace(",", ".");
+        }
+            
+        switch(this.operator) {
+            case "/":
+                this.displayNumber = Float.toString(Float.parseFloat(this.firstNumber) / Float.parseFloat(this.displayNumber));
+                break;
+            case "x":
+                this.displayNumber = Float.toString(Float.parseFloat(this.firstNumber) * Float.parseFloat(this.displayNumber));
+                break;
+            case "-":
+                this.displayNumber = Float.toString(Float.parseFloat(this.firstNumber) - Float.parseFloat(this.displayNumber));
+                break;
+            case "+":
+                this.displayNumber = Float.toString(Float.parseFloat(this.firstNumber) + Float.parseFloat(this.displayNumber));
+                break;
+        }
+            
+        if(this.displayNumber.contains(".")) {
+            this.displayNumber = this.displayNumber.replace(".", ",");
+        }
+
+        this.alrdyCount = true;
     }
     
     public void cleanNumber() {
@@ -700,18 +796,17 @@ public class App extends javax.swing.JFrame {
 
     public void handleOperator(String operator) {
         this.operator = operator;
-        this.secondNumber = (this.displayNumber == null) ? this.secondNumber : new String(this.displayNumber);
-        this.history.setText(this.secondNumber + " " + this.operator);
+        this.firstNumber = (this.displayNumber == null) ? this.firstNumber : new String(this.displayNumber);
+        this.history.setText(this.firstNumber + " " + this.operator);
         this.displayNumber = null; 
         this.waitingForSecondNumber = true;
+        this.alrdyCount = false;
     }
     
     private void clearCalculator() {
-        this.displayNumber = "0";
-        updateDisplay();
         this.history.setText("");
         this.operator = null;
-        this.secondNumber = null;
+        this.firstNumber = null;
         this.waitingForSecondNumber = false;
     }
     
