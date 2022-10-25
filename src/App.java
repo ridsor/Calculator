@@ -491,6 +491,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
 
         inputDigit("0");
@@ -524,6 +525,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("1");
@@ -535,6 +537,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("2");
@@ -546,6 +549,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("3");
@@ -568,6 +572,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("6");
@@ -579,6 +584,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("5");
@@ -590,6 +596,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("4");
@@ -607,6 +614,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("9");
@@ -618,6 +626,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("8");
@@ -629,6 +638,7 @@ public class App extends javax.swing.JFrame {
         if(this.alrdyCount) {
             this.displayNumber = null;
             clearCalculator();
+            this.alrdyCount = false;
         }
         
         inputDigit("7");
@@ -671,6 +681,11 @@ public class App extends javax.swing.JFrame {
 
     private void clearFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFieldActionPerformed
         // TODO add your handling code here:
+        if(this.alrdyCount) {
+            clearCalculator();
+            this.alrdyCount = false;
+        }
+        
         this.displayNumber = "0";
         updateDisplay();
     }//GEN-LAST:event_clearFieldActionPerformed
